@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { compose, inc, objOf, prop } from 'ramda'
 import React, { Component, Fragment } from 'react'
 import { GameActions } from './GameActions.jsx'
 import { keySetProps } from './types/key-set'
@@ -13,27 +14,17 @@ export class Player extends Component {
       leftCount: 0
     }
 
-    this.handleA = this.handleA.bind(this)
-    this.handleB = this.handleB.bind(this)
-    this.handleLeft = this.handleLeft.bind(this)
+    this.increaseCount = this.increaseCount.bind(this)
   }
 
-  handleA() {
-    this.setState(state => ({
-      aCount: state.aCount + 1
-    }))
-  }
+  increaseCount(propName) {
+    const incProp = compose(
+      objOf(propName),
+      inc,
+      prop(propName)
+    )
 
-  handleB() {
-    this.setState(state => ({
-      bCount: state.bCount + 1
-    }))
-  }
-
-  handleLeft() {
-    this.setState(state => ({
-      leftCount: state.leftCount + 1
-    }))
+    this.setState(incProp)
   }
 
   render() {
@@ -43,9 +34,9 @@ export class Player extends Component {
       <Fragment>
         <GameActions
           keySet={this.props.keySet}
-          onA={this.handleA}
-          onB={this.handleB}
-          onLeft={this.handleLeft}
+          onA={() => this.increaseCount('aCount')}
+          onB={() => this.increaseCount('bCount')}
+          onLeft={() => this.increaseCount('leftCount')}
         />
         <div>
           {name}: {aCount} {bCount} {leftCount}
