@@ -14,10 +14,10 @@ export class Player extends Component {
       leftCount: 0
     }
 
-    this.increaseCount = this.increaseCount.bind(this)
+    this.handleAction = this.handleAction.bind(this)
   }
 
-  increaseCount(propName) {
+  handleAction(propName) {
     const incProp = compose(
       objOf(propName),
       inc,
@@ -34,9 +34,9 @@ export class Player extends Component {
       <Fragment>
         <GameActions
           keySet={this.props.keySet}
-          onA={() => this.increaseCount('aCount')}
-          onB={() => this.increaseCount('bCount')}
-          onLeft={() => this.increaseCount('leftCount')}
+          onA={() => this.handleAction('aCount')}
+          onB={() => this.handleAction('bCount')}
+          onLeft={() => this.handleAction('leftCount')}
         />
         <div>
           {name}: {aCount} {bCount} {leftCount}
