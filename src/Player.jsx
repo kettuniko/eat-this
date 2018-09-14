@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component, Fragment } from 'react'
 import { GameActions } from './GameActions.jsx'
-import { keySetProps } from './key-set'
+import { keySetProps } from './types/key-set'
 
 export class Player extends Component {
   constructor(props) {
