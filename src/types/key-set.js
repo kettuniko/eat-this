@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types'
+import { shape, string } from 'prop-types'
 
-export const keySetProps = PropTypes.shape({
-  A: PropTypes.string.isRequired,
-  B: PropTypes.string.isRequired,
-  LEFT: PropTypes.string.isRequired
+export const keySetProps = shape({
+  A: string.isRequired,
+  B: string.isRequired,
+  LEFT: string.isRequired
 })

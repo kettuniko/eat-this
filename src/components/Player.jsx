@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { string } from 'prop-types'
 import { compose, inc, objOf, prop } from 'ramda'
 import React, { Component, Fragment } from 'react'
 import { GameActions } from './GameActions.jsx'
@@ -47,6 +47,6 @@ export class Player extends Component {
 }
 
 Player.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: string.isRequired,
   keySet: keySetProps.isRequired
 }

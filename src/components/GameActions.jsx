@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { func } from 'prop-types'
 import {
   __,
   call,
@@ -70,7 +70,7 @@ export class GameActions extends Component {
 
 GameActions.propTypes = {
   keySet: keySetProps.isRequired,
-  onA: PropTypes.func.isRequired,
-  onB: PropTypes.func.isRequired,
-  onLeft: PropTypes.func.isRequired
+  onA: func.isRequired,
+  onB: func.isRequired,
+  onLeft: func.isRequired
 }
