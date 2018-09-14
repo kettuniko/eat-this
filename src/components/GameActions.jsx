@@ -14,7 +14,7 @@ import {
 } from 'ramda'
 import { isNotNil, noop } from 'ramda-adjunct'
 import { Component } from 'react'
-import { keySetProps } from './types/key-set'
+import { keySetProps } from '../types/key-set'
 
 export class GameActions extends Component {
   constructor(props) {

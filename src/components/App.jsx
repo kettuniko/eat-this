@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { map } from 'ramda'
 import { Player } from './Player.jsx'
-import players from './players'
+import players from '../players'
 
 export const App = () => (
   <Fragment>
