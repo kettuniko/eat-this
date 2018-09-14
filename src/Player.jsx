@@ -56,6 +56,6 @@ export class Player extends Component {
 }
 
 Player.propTypes = {
-  name: PropTypes.string,
-  keySet: keySetProps
+  name: PropTypes.string.isRequired,
+  keySet: keySetProps.isRequired
 }

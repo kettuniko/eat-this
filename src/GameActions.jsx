@@ -69,8 +69,8 @@ export class GameActions extends Component {
 }
 
 GameActions.propTypes = {
-  keySet: keySetProps,
-  onA: PropTypes.func,
-  onB: PropTypes.func,
-  onLeft: PropTypes.func
+  keySet: keySetProps.isRequired,
+  onA: PropTypes.func.isRequired,
+  onB: PropTypes.func.isRequired,
+  onLeft: PropTypes.func.isRequired
 }
