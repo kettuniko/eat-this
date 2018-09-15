@@ -1,7 +1,10 @@
 import { string } from 'prop-types'
+import { always, times } from 'ramda'
 import React, { Component, Fragment } from 'react'
 import { GameActions } from './GameActions.jsx'
 import { keySetProps } from '../types/key-set'
+
+const maxSlices = 4
 
 export class Player extends Component {
   constructor(props) {
@@ -9,29 +12,49 @@ export class Player extends Component {
 
     this.state = {
       score: 0,
-      lastKey: null
+      lastKey: null,
+      leftToEat: maxSlices
     }
 
-    this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.handleActionKeyPress = this.handleActionKeyPress.bind(this)
+    this.handleClearKeyPress = this.handleClearKeyPress.bind(this)
   }
 
-  handleKeyPress(lastKey) {
-    this.setState({ lastKey })
+  handleActionKeyPress(key) {
+    const { lastKey, leftToEat, score } = this.state
+    const allowedToEat = key !== lastKey
+    if (allowedToEat) {
+      const isFinishing = leftToEat === 1
+      const currentLeftToEat = Math.max(0, leftToEat - 1)
+      this.setState({
+        leftToEat: currentLeftToEat,
+        score: isFinishing ? score + 1 : score
+      })
+    }
+
+    this.setState({ lastKey: key })
+  }
+
+  handleClearKeyPress(key) {
+    this.setState({
+      leftToEat: maxSlices,
+      lastKey: key
+    })
   }
 
   render() {
     const { name } = this.props
-    const { score, lastKey } = this.state
+    const { score, leftToEat } = this.state
     return (
       <Fragment>
         <GameActions
           keySet={this.props.keySet}
-          onA={this.handleKeyPress}
-          onB={this.handleKeyPress}
-          onLeft={this.handleKeyPress}
+          onA={this.handleActionKeyPress}
+          onB={this.handleActionKeyPress}
+          onLeft={this.handleClearKeyPress}
         />
         <div>
-          {name}: {score} {lastKey}
+          {name}: {score} {times(always('🍕'), leftToEat)}
         </div>
       </Fragment>
     )
