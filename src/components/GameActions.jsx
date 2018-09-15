@@ -9,6 +9,7 @@ import {
   head,
   last,
   prop,
+  tap,
   toUpper,
   when
 } from 'ramda'
@@ -36,22 +37,32 @@ export class GameActions extends Component {
       head
     )
 
-    const doAction = compose(
-      call,
-      defaultTo(noop),
-      when(isNotNil, toAction)
-    )
-
     const hasKeyHandlerFor = key =>
       compose(
         equals(toUpper(key)),
         last
       )
 
-    compose(
-      doAction,
+    const findKeyHandler = compose(
       find(hasKeyHandlerFor(key)),
       Object.entries
+    )
+
+    const findKey = compose(
+      head,
+      defaultTo([]),
+      findKeyHandler
+    )
+
+    const doAction = compose(
+      f => f(findKey(keySet)),
+      defaultTo(noop),
+      when(isNotNil, toAction)
+    )
+
+    compose(
+      doAction,
+      findKeyHandler
     )(keySet)
   }
 

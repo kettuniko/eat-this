@@ -1,5 +1,4 @@
 import { string } from 'prop-types'
-import { compose, inc, objOf, prop } from 'ramda'
 import React, { Component, Fragment } from 'react'
 import { GameActions } from './GameActions.jsx'
 import { keySetProps } from '../types/key-set'
@@ -9,37 +8,30 @@ export class Player extends Component {
     super(props)
 
     this.state = {
-      aCount: 0,
-      bCount: 0,
-      leftCount: 0
+      score: 0,
+      lastKey: null
     }
 
-    this.handleAction = this.handleAction.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
-  handleAction(propName) {
-    const incProp = compose(
-      objOf(propName),
-      inc,
-      prop(propName)
-    )
-
-    this.setState(incProp)
+  handleKeyPress(lastKey) {
+    this.setState({ lastKey })
   }
 
   render() {
     const { name } = this.props
-    const { aCount, bCount, leftCount } = this.state
+    const { score, lastKey } = this.state
     return (
       <Fragment>
         <GameActions
           keySet={this.props.keySet}
-          onA={() => this.handleAction('aCount')}
-          onB={() => this.handleAction('bCount')}
-          onLeft={() => this.handleAction('leftCount')}
+          onA={this.handleKeyPress}
+          onB={this.handleKeyPress}
+          onLeft={this.handleKeyPress}
         />
         <div>
-          {name}: {aCount} {bCount} {leftCount}
+          {name}: {score} {lastKey}
         </div>
       </Fragment>
     )
